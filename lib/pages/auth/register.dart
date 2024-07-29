@@ -276,7 +276,7 @@ class _RegisterPageState extends State<RegisterPage> {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(userName);
-          nextScreenReplace(context, const NavbarPage());
+          nextScreenRemove(context, const NavbarPage());
         } else {
           showSnackbar(context, Colors.red, value);
           setState(() {
