@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_comerce/models/cart_model.dart';
 import 'package:e_comerce/pages/checkout.dart';
 import 'package:e_comerce/pages/navBar.dart';
+import 'package:e_comerce/service/Database_service.dart';
 import 'package:e_comerce/shared/constants.dart';
 import 'package:e_comerce/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,21 +17,36 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-
+  String email = "";
   @override
   Widget build(BuildContext context) {
 
     final cart = Provider.of<CartModel>(context);
 
     void placeOrder() async {
-
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) {
         showSnackbar(context, Colors.red, 'Please log in to place an order');
         return null;
       }
+      email = currentUser.email!;
+      final QuerySnapshot snapshot = await DatabaseService().gettingUserData(email);
+      if (snapshot.docs.isEmpty) {
+        showSnackbar(context, Colors.red, 'User with email $email not found.');
+        return null;
+      }
+      final user = snapshot.docs[0];
 
-      final userEmail = user.email;
+      if (user['phoneNumber'].isEmpty) {
+        showSnackbar(context, Colors.red, 'Please provide a phone number to place an order');
+        return null;
+      }
+
+      if (user['address'].isEmpty) {
+        showSnackbar(context, Colors.red, 'Please provide an address to place an order.');
+        return null;
+      }
+
       final orderItems = cart.items
           .map((item) => {
         'productName': item.product.name,
@@ -45,7 +61,10 @@ class _CartPageState extends State<CartPage> {
       }
 
       final order = {
-        'userEmail': userEmail,
+        'userName': user['userName'],
+        'userEmail': user['email'],
+        'address' : user['address'],
+        'phoneNumber' : user['phoneNumber'],
         'orderItems': orderItems,
         'totalPrice': cart.totalPrice,
         'orderDate': Timestamp.now(),

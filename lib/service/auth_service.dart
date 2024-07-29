@@ -60,10 +60,7 @@ class AuthService {
   //resetPassword
   Future<String> sendPasswordResetEmail({required String email}) async {
     try {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: email)
-          .get();
+      final QuerySnapshot snapshot = await DatabaseService().gettingUserData(email);
 
       if (snapshot.docs.isEmpty) {
         return 'User with email $email not found.';
@@ -76,6 +73,23 @@ class AuthService {
       return e.message ?? 'An error occurred while sending the password reset email.';
     } catch (e) {
       return 'An unexpected error occurred.';
+    }
+  }
+
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    User? user = firebaseAuth.currentUser;
+
+    if (user != null) {
+
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: oldPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      // Update the password
+      await user.updatePassword(newPassword);
     }
   }
 

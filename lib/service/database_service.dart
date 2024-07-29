@@ -17,7 +17,9 @@ class DatabaseService {
     return await userCollection.doc(uid).set({
       "userName": userName,
       "email": email,
-      "profilePic": "",
+      "address": "",
+      "phoneNumber":"",
+      "profilePic": "https://firebasestorage.googleapis.com/v0/b/e-commerce-52105.appspot.com/o/profile_images%2Fdefault-user-picture.png?alt=media&token=c5ab02c7-b488-4c8f-8bba-9b1e3c557551",
       "favoriteItems": favoriteItems,
       "uid": uid,
     });

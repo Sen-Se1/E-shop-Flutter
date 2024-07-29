@@ -3,7 +3,6 @@ import 'package:e_comerce/models/cart_model.dart';
 import 'package:e_comerce/pages/navBar.dart';
 import 'package:e_comerce/shared/constants.dart';
 import 'package:e_comerce/widgets/widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +80,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 title: Row(
                   children: [
                     Image.asset(
-                      'assets/Credit Card.jfif',
+                      'assets/Credit Card.png',
                       width: 24,
                       height: 24,
                     ),
