@@ -29,8 +29,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             },
           ),
           flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [Color(0xFF6C0345), Color(0xFF6C0345)],

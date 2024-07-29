@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_comerce/models/cart_model.dart';
+import 'package:e_comerce/pages/checkout.dart';
 import 'package:e_comerce/pages/navBar.dart';
 import 'package:e_comerce/shared/constants.dart';
 import 'package:e_comerce/widgets/widgets.dart';
@@ -7,29 +8,41 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+
+  @override
   Widget build(BuildContext context) {
+
     final cart = Provider.of<CartModel>(context);
 
     void placeOrder() async {
+
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
         showSnackbar(context, Colors.red, 'Please log in to place an order');
-        return;
+        return null;
       }
 
       final userEmail = user.email;
       final orderItems = cart.items
           .map((item) => {
-                'productName': item.product.name,
-                'productPrice': item.product.price,
-                'quantity': item.quantity,
-                'totalPrice': item.product.price * item.quantity,
-              })
-          .toList();
+        'productName': item.product.name,
+        'productPrice': item.product.price,
+        'quantity': item.quantity,
+        'totalPrice': item.product.price * item.quantity,
+      }).toList();
+
+      if (orderItems.isEmpty) {
+        showSnackbar(context, Colors.red, 'Please add items before making payment');
+        return null;
+      }
 
       final order = {
         'userEmail': userEmail,
@@ -38,14 +51,8 @@ class CartPage extends StatelessWidget {
         'orderDate': Timestamp.now(),
       };
 
-      if (orderItems.isEmpty) {
-        showSnackbar(context, Colors.red, 'Please add items before making payment');
-        return;
-      }
+      nextScreen(context, CheckoutPage(order: order));
 
-      await FirebaseFirestore.instance.collection('orders').add(order);
-      cart.clearCart();
-      showSnackbar(context, Colors.green, 'Order placed successfully!');
     }
 
     return Scaffold(

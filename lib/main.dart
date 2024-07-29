@@ -1,5 +1,6 @@
 import 'package:e_comerce/helper/helper_function.dart';
 import 'package:e_comerce/pages/auth/login.dart';
+import 'package:e_comerce/pages/checkout.dart';
 import 'package:e_comerce/pages/navBar.dart';
 import 'package:e_comerce/shared/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
