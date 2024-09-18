@@ -30,7 +30,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       } on FirebaseAuthException catch (e) {
         String errorMessage;
         switch (e.code) {
-          // case 'wrong-password':
+        // case 'wrong-password':
           case 'invalid-credential':
             errorMessage = 'The current password is incorrect. Please try again.';
             break;
@@ -63,65 +63,135 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         ),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Current Password'),
-                  obscureText: true,
-                  onChanged: (value) {
-                    setState(() {
-                      currentPassword = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your Current password';
-                    }
-                    return null;
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: textInputDecoration.copyWith(
+                        hintText: "Current Password",
+                        suffixIcon: const Icon(Icons.lock_outline,
+                            color: Colors.black12),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          currentPassword = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your Current password';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'New Password'),
-                  obscureText: true,
-                  onChanged: (value) {
-                    setState(() {
-                      newPassword = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your new password';
-                    }
-                    if (value.length < 6) {
-                      return "New password must be at least 6 characters";
-                    }
-                    return null;
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: textInputDecoration.copyWith(
+                        hintText: "New Password",
+                        suffixIcon: const Icon(Icons.lock_outline,
+                            color: Colors.black12),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          newPassword = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your new password';
+                        }
+                        if (value.length < 6) {
+                          return "New password must be at least 6 characters";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Confirm Password'),
-                  obscureText: true,
-                  onChanged: (value) {
-                    setState(() {
-                      confirmPassword = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your confirm password';
-                    }
-                    if (value != newPassword){
-                      return 'Confirm passwords do not match the new password';
-                    }
-                    return null;
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45.withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: textInputDecoration.copyWith(
+                        hintText: "Confirm Password",
+                        suffixIcon: const Icon(Icons.lock_outline,
+                            color: Colors.black12),
+                      ),onChanged: (value) {
+                      setState(() {
+                        confirmPassword = value;
+                      });
+                    },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your confirm password';
+                        }
+                        if (value != newPassword){
+                          return 'Confirm passwords do not match the new password';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(

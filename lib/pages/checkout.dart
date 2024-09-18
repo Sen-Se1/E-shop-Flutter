@@ -68,7 +68,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         ),
       ),
       body: Container(
-        color: Constants().bgColor,
+        color: Colors.white,
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -117,127 +117,273 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 },
               ),
               if (_selectedPaymentMethod == 'Credit Card') ...[
-                TextFormField(
-                  controller: _firstNameController,
-                  decoration: const InputDecoration(
-                    labelText: 'First Name and Last Name',
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                  validator: (value) {
-                    if (value!.isNotEmpty) {
-                      return null;
-                    } else {
-                      return "Please enter your first name and last name";
-                    }
-                  },
-                ),
-                TextFormField(
-                  controller: _cardNumberController,
-                  decoration: const InputDecoration(
-                    labelText: 'Card Number',
-                    prefixIcon: Icon(Icons.credit_card),
-                  ),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your card number';
-                    }
-                    if (value.length != 16) {
-                      return 'Card number must be 16 digits';
-                    }
-                    if (!RegExp(r'^\d{16}$').hasMatch(value)) {
-                      return 'Card number must be all digits';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _expiryDateController,
-                  decoration: const InputDecoration(
-                    labelText: 'Expiry Date',
-                    prefixIcon: Icon(Icons.date_range),
-                  ),
-                  keyboardType: TextInputType.datetime,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter expiry date';
-                    }
+      Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 20, vertical: 10),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black45.withOpacity(0.3),
+              spreadRadius: 3,
+              blurRadius: 3,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: TextFormField(
+          controller: _firstNameController,
+          obscureText: true,
+          decoration: textInputDecoration.copyWith(
+            hintText: "First Name and Last Name",
+            suffixIcon: const Icon(Icons.person,
+                color: Colors.black12),
+          ),
+          validator: (value) {
+            if (value!.isNotEmpty) {
+              return null;
+            } else {
+              return "Please enter your first name and last name";
+            }
+          },
 
-                    final regex = RegExp(r'^(0[1-9]|1[0-2])\/?([0-9]{2})$');
-                    if (!regex.hasMatch(value)) {
-                      return 'Invalid date format. Use MM/YY';
-                    }
+        ),
+      ),
+    ),
+    Padding(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    child: Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.black45.withOpacity(0.3),
+    spreadRadius: 3,
+    blurRadius: 3,
+    offset: const Offset(0, 2),
+    ),
+    ],
+    ),
+    child: TextFormField(
+    controller: _cardNumberController,
+    obscureText: true,
+    decoration: textInputDecoration.copyWith(
+    hintText: "Card Number",
+    suffixIcon: const Icon(Icons.credit_card,
+    color: Colors.black12),
+    ),
+    keyboardType: TextInputType.number,
+    validator: (value) {
+    if (value!.isEmpty) {
+    return 'Please enter your card number';
+    }
+    if (value.length != 16) {
+    return 'Card number must be 16 digits';
+    }
+    if (!RegExp(r'^\d{16}$').hasMatch(value)) {
+    return 'Card number must be all digits';
+    }
+    return null;
+    },
 
-                    final parts = value.split('/');
-                    final month = int.parse(parts[0]);
-                    final year = int.parse(parts[1]) + 2000;
+    ),
+    ),
+    ),
+    Padding(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    child: Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.black45.withOpacity(0.3),
+    spreadRadius: 3,
+    blurRadius: 3,
+    offset: const Offset(0, 2),
+    ),
+    ],
+    ),
+    child: TextFormField(
+    controller: _expiryDateController,
+    obscureText: true,
+    decoration: textInputDecoration.copyWith(
+    hintText: "Expiry Date",
+    suffixIcon: const Icon(Icons.date_range,
+    color: Colors.black12),
+    ),
+    keyboardType: TextInputType.datetime,
+    validator: (value) {
+    if (value!.isEmpty) {
+    return 'Please enter expiry date';
+    }
 
-                    final now = DateTime.now();
-                    final expiryDate = DateTime(year, month);
+    final regex = RegExp(r'^(0[1-9]|1[0-2])\/?([0-9]{2})$');
+    if (!regex.hasMatch(value)) {
+    return 'Invalid date format. Use MM/YY';
+    }
 
-                    if (expiryDate.isBefore(DateTime(now.year, now.month))) {
-                      return 'Expiry date cannot be in the past';
-                    }
+    final parts = value.split('/');
+    final month = int.parse(parts[0]);
+    final year = int.parse(parts[1]) + 2000;
 
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _cvvController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'CVV',
-                    prefixIcon: Icon(Icons.lock),
-                  ),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter CVV';
-                    }
-                    if (value.length != 3) {
-                      return 'CVV must be 3 digits';
-                    }
+    final now = DateTime.now();
+    final expiryDate = DateTime(year, month);
 
-                    if (!RegExp(r'^\d{3}$').hasMatch(value)) {
-                      return 'CVV must be all digits';
-                    }
+    if (expiryDate.isBefore(DateTime(now.year, now.month))) {
+    return 'Expiry date cannot be in the past';
+    }
 
-                    return null;
-                  },
-                ),
-              ] else if (_selectedPaymentMethod == 'PayPal') ...[
-                TextFormField(
-                  controller: _paypalEmailController,
-                  decoration: const InputDecoration(
-                    labelText: 'PayPal Email',
-                    prefixIcon: Icon(Icons.email),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)
-                        ? null
-                        : "Please enter a valid email";
-                  },
-                ),
-                TextFormField(
-                  controller: _paypalPasswordController,
-                  decoration: const InputDecoration(
-                    labelText: 'PayPal Password',
-                    prefixIcon: Icon(Icons.lock),
-                  ),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your PayPal password';
-                    }
-                    return null;
-                  },
-                ),
+    return null;
+    },
+
+    ),
+    ),
+    ),
+    Padding(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    child: Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.black45.withOpacity(0.3),
+    spreadRadius: 3,
+    blurRadius: 3,
+    offset: const Offset(0, 2),
+    ),
+    ],
+    ),
+    child: TextFormField(
+    controller: _cvvController,
+    obscureText: true,
+    decoration: textInputDecoration.copyWith(
+    hintText: "CVV",
+    suffixIcon: const Icon(Icons.lock,
+    color: Colors.black12),
+    ),
+    keyboardType: TextInputType.number,
+    validator: (value) {
+    if (value!.isEmpty) {
+    return 'Please enter CVV';
+    }
+    if (value.length != 3) {
+    return 'CVV must be 3 digits';
+    }
+
+    if (!RegExp(r'^\d{3}$').hasMatch(value)) {
+    return 'CVV must be all digits';
+    }
+
+    return null;
+    },
+
+    ),
+    ),
+    ),] else if (_selectedPaymentMethod == 'PayPal') ...[
+    Padding(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    child: Container(
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    ),
+    child: Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.black45.withOpacity(0.3),
+    spreadRadius: 3,
+    blurRadius: 3,
+    offset: const Offset(0, 2),
+    ),
+    ],
+    ),
+    child: TextFormField(
+    decoration: textInputDecoration.copyWith(
+    hintText: " Paypal Email...",
+    suffixIcon: const Icon(Icons.email_outlined,
+    color: Colors.black12),
+    ),
+    keyboardType: TextInputType.emailAddress,
+    validator: (value) {
+    if (value!.isEmpty) {
+    return 'Please enter your email';
+    }
+    return RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value)
+    ? null
+        : "Please enter a valid email";
+    },
+    ),
+    ),
+    ),
+    ),
+
+
+    Padding(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    child: Container(
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    ),
+    child: Container(
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 10),
+    decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(30),
+    boxShadow: [
+    BoxShadow(
+    color: Colors.black45.withOpacity(0.3),
+    spreadRadius: 3,
+    blurRadius: 3,
+    offset: const Offset(0, 2),
+    ),
+    ],
+    ),
+    child: TextFormField(
+    decoration: textInputDecoration.copyWith(
+    hintText: "Paypal Password...",
+    suffixIcon: const Icon(Icons.password_outlined,
+    color: Colors.black12),
+    ),
+    obscureText: true,
+    validator: (value) {
+    if (value!.isEmpty) {
+    return 'Please enter your PayPal password';
+    }
+    return null;
+    },
+    ),
+    ),
+    ),
+    ),
+
+
               ],
               const SizedBox(height: 20),
               ElevatedButton(

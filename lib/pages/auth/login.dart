@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_comerce/helper/helper_function.dart';
 import 'package:e_comerce/pages/auth/register.dart';
@@ -105,9 +104,8 @@ class LoginPageState extends State<LoginPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(
-                          height: 120,
-                        ),
+                        const SizedBox(height: 120),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
@@ -153,9 +151,8 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 25),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
@@ -196,9 +193,8 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 25,
-                        ),
+                        const SizedBox(height: 25),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -222,9 +218,8 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 25,
-                        ),
+                        const SizedBox(height: 25),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                           child: GestureDetector(
@@ -246,14 +241,13 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
+                        const SizedBox(height: 30),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Don't have an account ? ",
+                              "Don't have an account? ",
                               style: GoogleFonts.robotoCondensed(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

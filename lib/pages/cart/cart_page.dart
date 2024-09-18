@@ -90,7 +90,7 @@ class _CartPageState extends State<CartPage> {
         ),
         backgroundColor: Constants().primaryColor,
       ),
-      backgroundColor: Constants().bgColor,
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Expanded(
@@ -173,7 +173,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                   onPressed: placeOrder,
                   child: Text('Proceed to Checkout',
-                      style: TextStyle(color: Constants().bgColor)),
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),

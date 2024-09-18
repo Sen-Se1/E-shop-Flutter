@@ -140,19 +140,19 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       _image == null
                           ? (imageUrl == null
-                              ? const Icon(
-                                  Icons.account_circle,
-                                  size: 160,
-                                  color: Colors.grey,
-                                )
-                              : CircleAvatar(
-                                  radius: 80,
-                                  backgroundImage: NetworkImage(imageUrl!),
-                                ))
+                          ? const Icon(
+                        Icons.account_circle,
+                        size: 160,
+                        color: Colors.grey,
+                      )
                           : CircleAvatar(
-                              radius: 80,
-                              backgroundImage: FileImage(_image!),
-                            ),
+                        radius: 80,
+                        backgroundImage: NetworkImage(imageUrl!),
+                      ))
+                          : CircleAvatar(
+                        radius: 80,
+                        backgroundImage: FileImage(_image!),
+                      ),
                       Positioned(
                         bottom: 0,
                         right: 0,
@@ -168,13 +168,35 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  controller: userNameController,
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+            Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 20, vertical: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45.withOpacity(0.3),
+                      spreadRadius: 3,
+                      blurRadius: 3,
+                      offset: const Offset(0, 2),
                     ),
+                  ],
+                ),
+                child: TextFormField(
+                  controller:userNameController,
+                  decoration: textInputDecoration.copyWith(
+                    hintText: "UserName",
+                    suffixIcon: const Icon(Icons.account_box_rounded,
+                        color: Colors.black12),
                   ),
                   onChanged: (val) {
                     setState(() {
@@ -189,70 +211,166 @@ class _ProfilePageState extends State<ProfilePage> {
                     }
                   },
                 ),
+              ),
+            ),
+          ),
+
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  readOnly: true,
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black45.withOpacity(0.3),
+                            spreadRadius: 3,
+                            blurRadius: 3,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        controller:emailController,
+                        enabled: false,
+                        decoration: textInputDecoration.copyWith(
+                          hintText: "Email...",
+                          suffixIcon: const Icon(Icons.email_outlined,
+                              color: Colors.black12),
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+                            email = val;
+                          });
+                        },
+                        validator: (val) {
+                          return RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(val!)
+                              ? null
+                              : "Please enter a valid email";
+                        },
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  controller: addressController,
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  onChanged: (val) {
-                    setState(() {
-                      address = val;
-                    });
-                  },
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20, vertical: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
                 ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45.withOpacity(0.3),
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                    controller: addressController,
+                    decoration: textInputDecoration.copyWith(
+                      hintText: "Adress",
+                      suffixIcon: const Icon(Icons.home_filled,
+                          color: Colors.black12),
+                    ),
+                    onChanged: (val) {
+                      setState(() {
+                        address = val;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  controller: phoneNumberController,
-                  decoration: InputDecoration(
-                    labelText: 'Phone Number',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20, vertical: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45.withOpacity(0.3),
+                        spreadRadius: 3,
+                        blurRadius: 3,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  onChanged: (val) {
-                    setState(() {
-                      phoneNumber = val;
-                    });
-                  },
-                  validator: (value) {
-                    if (value!.isNotEmpty) {
-                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                        return 'Please enter only digits';
+                  child: TextFormField(
+                    controller: phoneNumberController,
+                    decoration: textInputDecoration.copyWith(
+                      hintText: "Phone Number",
+                      suffixIcon: const Icon(Icons.phone_android_rounded,
+                          color: Colors.black12),
+                    ),
+                    onChanged: (val) {
+                      setState(() {
+                        phoneNumber = val;
+                      });
+                    },
+                    validator: (value) {
+                      if (value!.isNotEmpty) {
+                        if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return 'Please enter only digits';
+                        }
+                        if (value.length != 8) {
+                          return 'Phone number must be 8 digits long';
+                        }
                       }
-                      if (value.length != 8) {
-                        return 'Phone number must be 8 digits long';
-                      }
-                    }
-                    return null;
-                  },
+                      return null;
+                    },
+                  ),
                 ),
+              ),
+            ),
+
+
                 const SizedBox(
                   height: 16,
                 ),
                 ElevatedButton(
                   onPressed: _saveProfile,
-                  child: const Text('Save Profile'),
+                  child: const Text('Save Profile', style: TextStyle(color: Colors.white),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Constants().primaryColor,
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
@@ -261,13 +379,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     nextScreen(context, const ChangePasswordPage());
                   },
-                  child: const Text('Change Password'),
+                  child: const Text('Change Password', style: TextStyle(color: Colors.white),),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Constants().primaryColor,
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
+      backgroundColor: Colors.white,
     );
   }
 }

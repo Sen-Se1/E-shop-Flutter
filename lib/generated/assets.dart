@@ -2,8 +2,15 @@
 class Assets {
   Assets._();
 
+  static const String assetsAdd = 'assets/add.png';
+  static const String assetsAddProductIcon = 'assets/add_product_icon.png';
   static const String assetsBackgroundPic = 'assets/backgroundPic.png';
   static const String assetsBg = 'assets/bg.png';
+  static const String assetsCreditCard = 'assets/Credit Card.png';
+  static const String assetsOnlinestore = 'assets/onlinestore.png';
+  static const String assetsPaypal = 'assets/paypal.png';
+  static const String assetsProductsIcon = 'assets/products_icon.png';
+  static const String assetsProfileIcon = 'assets/profile_icon.png';
   static const String assetsSecurity = 'assets/Security.png';
 
 }
